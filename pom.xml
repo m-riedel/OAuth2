@@ -29,6 +29,7 @@
     <modules>
         <module>oauth2-core</module>
         <module>oauth2-authorization-server</module>
+        <module>oauth2-server-persistence</module>
     </modules>
 
     <profiles>
