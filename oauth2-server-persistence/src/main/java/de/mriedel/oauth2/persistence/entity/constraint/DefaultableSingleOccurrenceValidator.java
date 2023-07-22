@@ -9,14 +9,9 @@ import java.util.Collection;
 
 public class DefaultableSingleOccurrenceValidator implements ConstraintValidator<DefaultableSingleOccurrenceConstraint, Collection<? extends Defaultable>> {
     @Override
-    public void initialize(DefaultableSingleOccurrenceConstraint constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
-    }
-
-    @Override
     public boolean isValid(Collection<? extends Defaultable> defaultables, ConstraintValidatorContext constraintValidatorContext) {
         if (defaultables == null || defaultables.isEmpty()) {
-            return true;
+            return false;
         }
         int count = 0;
         for(Defaultable defaultable : defaultables) {
@@ -27,6 +22,7 @@ public class DefaultableSingleOccurrenceValidator implements ConstraintValidator
                 return false;
             }
         }
-        return true;
+        System.out.println(count);
+        return count == 1;
     }
 }
