@@ -22,7 +22,6 @@ public class DefaultableSingleOccurrenceValidator implements ConstraintValidator
                 return false;
             }
         }
-        System.out.println(count);
         return count == 1;
     }
 }
