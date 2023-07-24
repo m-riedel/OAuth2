@@ -10,14 +10,17 @@ public class OAuth2TokenUserPasswordRequest extends OAuth2TokenRequest{
     String username;
     String password;
     String scope;
+    String clientId;
 
     public OAuth2TokenUserPasswordRequest(
             String username,
             String password,
-            String scope){
+            String scope,
+            String clientId){
         super(OAuth2GrantType.RESOURCE_OWNER_PASSWORD_CREDENTIALS_GRANT);
         this.username = username;
         this.password = password;
         this.scope = scope;
+        this.clientId = clientId;
     }
 }
