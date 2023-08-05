@@ -7,6 +7,7 @@ import de.mriedel.oauth2.core.request.OAuth2TokenRequest;
 import de.mriedel.oauth2.core.request.OAuth2TokenUserPasswordRequest;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,8 +16,18 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
+/**
+ * Converts a {@link OAuth2TokenRequest} to and from a {@link HttpInputMessage} and {@link HttpOutputMessage} in the
+ * application/x-www-form-urlencoded format respectively.
+ * @author Max Riedel
+ * @see OAuth2TokenRequest
+ * @see OAuth2TokenAuthCodeGrantRequest
+ * @see OAuth2TokenRefreshGrantRequest
+ * @see OAuth2TokenUserPasswordRequest
+ */
 public class OAuth2TokenRequestConverter extends AbstractHttpMessageConverter<OAuth2TokenRequest> {
     private static final FormHttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
     private static final OAuth2GrantType.OAuth2GrantTypeConverter grantTypeConverter = new OAuth2GrantType.OAuth2GrantTypeConverter();
@@ -90,5 +101,10 @@ public class OAuth2TokenRequestConverter extends AbstractHttpMessageConverter<OA
             }
             default -> throw new HttpMessageNotWritableException("Unsupported grant type");
         }
+    }
+
+    @Override
+    public List<MediaType> getSupportedMediaTypes(Class<?> clazz) {
+        return List.of(MediaType.APPLICATION_FORM_URLENCODED);
     }
 }
